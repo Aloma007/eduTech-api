@@ -1,0 +1,18 @@
+# Environments
+.venv/
+venv/
+env/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Database (Never commit your local testing database!)
+db.sqlite3
+
+# IDE Files
+.idea/
+.vscode/
+
+# Environment Variables
+.env
