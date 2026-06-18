@@ -19,6 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # This line tells Django: "Any url that starts with /api/, send it to the exams app!"
     path('api/', include('exams.urls')),
+
+    # This is the magic line that unlocks the login page!
+    path('api-auth/', include('rest_framework.urls')),
 ]
