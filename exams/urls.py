@@ -1,12 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import TestViewSet
+from .views import TestViewSet, SubmissionViewSet # Add your new viewset here!
 
-# Create a router and register our viewset with it.
 router = DefaultRouter()
 router.register(r'tests', TestViewSet)
 
-# The API URLs are now determined automatically by the router.
+# The new secure endpoint!
+router.register(r'my-results', SubmissionViewSet, basename='my-results')
+
 urlpatterns = [
     path('', include(router.urls)),
 ]

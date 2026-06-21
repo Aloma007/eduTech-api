@@ -1,11 +1,11 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 from users.permissions import IsTutor
 from .models import Test, Question, Choice, Submission, StudentAnswer
-from .serializers import TestSerializer
+from .serializers import TestSerializer, SubmissionSerializer
 
 class TestViewSet(ModelViewSet):
     queryset = Test.objects.all()
@@ -73,3 +73,18 @@ class TestViewSet(ModelViewSet):
             "message": "Examination submitted and graded successfully!",
             "final_score": total_score
         }, status=status.HTTP_201_CREATED)
+
+
+class SubmissionViewSet(ReadOnlyModelViewSet):
+    serializer_class = SubmissionSerializer
+    permission_classes = [IsAuthenticated]  # User must be logged in
+
+    def get_queryset(self):
+        user = self.request.user
+
+        # If the user is a student, ONLY return their personal grades
+        if user.is_student:
+            return Submission.objects.filter(student=user)
+
+        # If the user is a tutor/admin, let them see all grades in the system
+        return Submission.objects.all()

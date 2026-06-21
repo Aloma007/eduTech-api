@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Test, Question, Choice
+from .models import Test, Question, Choice, Submission
 
 class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +24,11 @@ class TestSerializer(serializers.ModelSerializer):
         model = Test
         # Notice how 'questions' is explicitly added to the fields list here
         fields = ['id', 'title', 'description', 'tutor', 'created_at', 'questions']
+
+class SubmissionSerializer(serializers.ModelSerializer):
+    test = serializers.StringRelatedField()
+    student = serializers.StringRelatedField()
+
+    class Meta:
+        model = Submission
+        fields = ['id', 'test', 'student', 'score']
