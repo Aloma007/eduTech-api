@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third-party apps
     'rest_framework',
+    'drf_spectacular',
     # Local apps
     'users',
     'exams',
@@ -102,6 +103,18 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# Bonus Flex: Let's give your documentation page a professional header
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'EdTech API Engine',
+    'DESCRIPTION': 'Official SIWES Backend Examination & Automated Grading System',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 
 # Internationalization
